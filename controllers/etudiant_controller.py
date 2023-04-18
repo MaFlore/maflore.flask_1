@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required
 
 api = Namespace('etudiants', description='Endpoints pour la gestion des étudiants')
 
-etudiant_model = api.model('Etudiants', {
+etudiant_model = api.model('Etudiant', {
     'nom': fields.String(required=True),
     'prenom': fields.String(required=True),
     'date_naissance': fields.String(required=True),
