@@ -16,6 +16,8 @@ load_dotenv()
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv("TRACK_MODIFICATIONS")
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 604800
 db.init_app(app)
 jwt = JWTManager(app)
 api = Api(app)

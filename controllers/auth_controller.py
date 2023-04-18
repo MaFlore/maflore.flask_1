@@ -2,7 +2,7 @@ from flask import jsonify, request
 from flask_restx import Namespace, Resource, fields
 from models.models import User
 from services.user_service import create_user, find_user_by_email, verify_password
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 
 api = Namespace('auth', description='Endpoints pour la gestion de l\'authentification')
 
@@ -47,15 +47,27 @@ class Login(Resource):
         
         # Génération du token JWT pour l'utilisateur authentifié
         access_token = create_access_token(identity=user.id)
-        return {'access_token': access_token}, 200
+        refresh_token = create_refresh_token(identity=user.id)
+        return {'access_token': access_token, 'refresh_token': refresh_token}, 200
 
 
 @api.route('/protected')
 class Protected(Resource):
     @jwt_required()
     def get(self):
-        user_id = get_jwt_identity()
-        user = User.query.filter_by(id=user_id).first()
-        
-        return {'message': 'Bienvenue ' + user.prenom + ' ' + user.nom + '.'}, 200
+        user = User.query.filter_by(id=get_jwt_identity()).first()
 
+        return jsonify({'user': {
+        'id': user.id,
+        'nom': user.nom,
+        'prenom': user.prenom,
+        'email': user.email
+        }})
+
+@api.route('/rafraichir', methods=['POST'])
+class Refresh(Resource):
+    def rafraichir():
+        user = User.query.filter_by(id=get_jwt_identity()).first()
+        access_token = create_access_token(identity=user.id)
+
+        return jsonify({'access_token': access_token}), 200
