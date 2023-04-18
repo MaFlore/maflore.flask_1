@@ -3,6 +3,7 @@ from flask_restx import Api
 from flask_jwt_extended import JWTManager
 from models.models import db
 from controllers.auth_controller import api as auth_ns
+from controllers.etudiant_controller import api as etudiant_ns
 from dotenv import load_dotenv
 import os
 
@@ -19,6 +20,8 @@ api = Api(app)
 
 # Ajout du namespace auth
 api.add_namespace(auth_ns)
+# Ajout des namespaces api
+api.add_namespace(etudiant_ns)
 
 @app.route('/')
 def index():
