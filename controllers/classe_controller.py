@@ -15,7 +15,7 @@ class GetsClasses(Resource):
     @jwt_required()
     def get(self):
         classes = get_all_classes()
-        return jsonify([{'id': classes.id, 'libelle': classe.libelle} for classe in classes])
+        return jsonify([{'id': classe.id, 'libelle': classe.libelle} for classe in classes])
     
 @api.route('/<id>', methods=['GET'])
 class GetClasse(Resource):
