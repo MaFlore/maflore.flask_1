@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from models.user import User, db
+from models.models import User, db
 
 def create_user(nom, prenom, motdepasse, email):
     user = User(nom=nom, prenom=prenom, motdepasse=generate_password_hash(motdepasse), email=email)

@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from flask_restx import Namespace, Resource, fields
-from models.user import User
+from models.models import User
 from services.user_service import create_user, find_user_by_email, verify_password
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 

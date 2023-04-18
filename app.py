@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_restx import Api
 from flask_jwt_extended import JWTManager
-from models.user import db
+from models.models import db
 from controllers.auth_controller import api as auth_ns
 from dotenv import load_dotenv
 import os
